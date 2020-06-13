@@ -8,8 +8,16 @@ PREFIX = /usr/local
 
 all:
 
+duff: bin/duff
+bin/duff: src/duff.c
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $< $(LDLIBS)
+
+endian: bin/endian
+bin/endian: src/endian.c
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ -DDEMO $< $(LDLIBS)
+
 clean:
-	rm -f *.o
+	rm -f bin/* src/*.o
 
 .c.o:
 	$(CC) -c $(CFLAGS) -o $@ $<

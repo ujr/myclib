@@ -11,6 +11,11 @@ for “copy-paste” use and as a memory aid.
 
 Code and notes available under the [MIT License](LICENSE).
 
+## Overview
+
+- Duff's Device: [Duff.md](doc/Duff.md), [duff.c](src/duff.c)
+- Endian: [Endian.md](doc/Endian.md), [endian.h](src/endian.h) [endian.c](src/endian.c)
+
 ## C Standard Library
 
 The C Programming Language is specified together

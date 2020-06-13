@@ -1,5 +1,11 @@
+# Ignore object files
 *.o
+# Ignore Vim swap files
 .*.swp
 
-TODO
-todo/
+/bin/*
+!/bin/.keep
+
+# Things to keep local
+/TODO
+/old/
