@@ -19,6 +19,6 @@ main(int argc, char **argv)
 
   scan_test(&numpass, &numfail);
 
-  printf("%d fail, %d pass\n", numfail, numpass);
+  SUMMARY(numpass, numfail);
   return numfail > 0 ? 1 : 0;
 }

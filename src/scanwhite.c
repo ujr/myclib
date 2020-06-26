@@ -1,3 +1,5 @@
+#include "scan.h"
+
 /** Scan leading white space */
 int
 scanwhite(const char *s)
@@ -15,5 +17,5 @@ scanwhite(const char *s)
     default: goto done;
   }
 done:
-  return p - s;
+  return p - s; /* #bytes scanned */
 }

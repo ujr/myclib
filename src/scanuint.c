@@ -1,15 +1,15 @@
 #include "scan.h"
 
-/** Scan an unsigned long in decimal notation */
+/** Scan an unsigned int in decimal notation */
 int
-scanulong(const char *s, unsigned long *pval)
+scanuint(const char *s, unsigned int *pval)
 {
   const char *p;
-  unsigned long val;
+  unsigned int val;
 
   if (!s) return 0;
 
-  for (p=s, val=0; '0'<=*p && *p<='9'; p++) {
+  for (p=s, val=0; '0' <= *p && *p <= '9'; p++) {
     val = 10 * val + (*p - '0');
   }
 

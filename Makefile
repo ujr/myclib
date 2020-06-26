@@ -6,7 +6,7 @@ LDFLAGS = -s
 LDLIBS = # -lm
 PREFIX = /usr/local
 
-all: liba testsuite duff endian
+all: liba testsuite duff endian match
 
 check: testsuite
 	bin/runtests
@@ -15,8 +15,11 @@ clean:
 	rm -f bin/* src/*.o
 
 TESTS = src/scan_test.o
-LIBINCS = src/scan.h
-LIBOBJS = src/scanint.o src/scanulong.o src/scanblank.o src/scanwhite.o
+LIBINCS = src/scan.h src/test.h
+LIBOBJS = src/scanint.o src/scanuint.o src/scanulong.o src/scanhex.o \
+  src/scanblank.o src/scanwhite.o src/scantext.o src/scanpat.o \
+  src/scanuntil.o src/scanwhile.o src/scanip4.o src/scanip4op.o \
+  src/scandate.o src/scantime.o
 
 liba: bin/myclib.a
 bin/myclib.a: $(LIBOBJS)
@@ -34,6 +37,10 @@ bin/duff: src/duff.c
 
 endian: bin/endian
 bin/endian: src/endian.c
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ -DDEMO $< $(LDLIBS)
+
+match: bin/match
+bin/match: src/scanpat.c
 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ -DDEMO $< $(LDLIBS)
 
 .c.o:

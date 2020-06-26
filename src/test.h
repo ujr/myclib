@@ -8,6 +8,7 @@
  *   TEST("can foo()", foo()==42);
  *   TEST("str fun", STREQ(bar(), "fun"));
  *   INFO("state is now %d", px->state);
+ *   SUMMARY(numpass, numfail);
  */
 
 #if _WIN32
@@ -15,6 +16,9 @@
 # define TERMFAIL  "FAIL"
 # define TERMHEAD  "%s\n"
 # define TERMINFO  "INFO"
+# define TERMBAD   ""
+# define TERMGOOD  ""
+# define TERMRESET ""
 #else /* not Windows: assume an ANSI terminal */
 # define ANSIRED   "\033[31m"
 # define ANSIGREEN "\033[32m"
@@ -22,6 +26,9 @@
 # define ANSICYAN  "\033[36m"
 # define ANSIBOLD  "\033[1m"
 # define ANSIRESET "\033[0m"
+# define TERMBAD   ANSIBOLD ANSIRED
+# define TERMGOOD  ANSIBOLD ANSIGREEN
+# define TERMRESET ANSIRESET
 # define TERMPASS  ANSIGREEN "PASS" ANSIRESET
 # define TERMFAIL  ANSIRED   "FAIL" ANSIRESET
 # define TERMHEAD  ANSIBOLD "%s" ANSIRESET "\n"
@@ -45,3 +52,11 @@
 
 #define INFO(fmt, ...) \
   printf(TERMINFO " " fmt "\n", __VA_ARGS__)
+
+#define SUMMARY(npass, nfail) \
+  do { \
+    if (nfail > 0) \
+      printf(TERMBAD "Oops: %d fail, %d pass" TERMRESET "\n", nfail, npass); \
+    else \
+      printf(TERMGOOD "OK: %d fail, %d pass" TERMRESET "\n", nfail, npass); \
+  } while (0)

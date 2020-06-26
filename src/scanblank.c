@@ -1,3 +1,5 @@
+#include "scan.h"
+
 /** Scan leading blanks (space and tab) */
 int
 scanblank(const char *s)
@@ -8,5 +10,5 @@ scanblank(const char *s)
   const char *p;
   if (!s) return 0;
   for (p=s; *p == blank || *p == tab; p++) {}
-  return p - s;
+  return p - s; /* #bytes scanned */
 }
