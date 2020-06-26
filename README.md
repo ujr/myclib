@@ -1,20 +1,23 @@
 # My C Library
 
-This is my collection of C utility functions.
+This is my collection of C utility functions,
+some of my own design and writing, some from
+public domain code I found useful.
 I also collect here some notes on C and related topics.
 
-The stuff here is not a “library” in the sense
-of a `.a` or `.so` file; instead it is intended
-for “copy-paste” use and as a memory aid.
+The stuff here may be used as a static library,
+as a “copy-paste” source, or simply as a memory aid.
 
 ![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)
-
 Code and notes available under the [MIT License](LICENSE).
 
 ## Overview
 
 - Duff's Device: [Duff.md](doc/Duff.md), [duff.c](src/duff.c)
-- Endian: [Endian.md](doc/Endian.md), [endian.h](src/endian.h) [endian.c](src/endian.c)
+- Endian: [Endian.md](doc/Endian.md), [endian.h](src/endian.h), [endian.c](src/endian.c)
+- Scanning: [Scan.md](doc/Scan.md), [scan.h](src/scan.h)
+- Style: [Notes on Programming in C](doc/PikeStyle.md) by Rob Pike
+- Testing: [test.h](src/test.h), [runtests.c](test/runtests.c)
 
 ## C Standard Library
 
