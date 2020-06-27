@@ -29,7 +29,7 @@ scantime(const char *s, struct tm *tp)
 
   if (*p != ':') t = 0;
   else { ++p;
-  	if ((t = (unsigned char) (*p++ - '0')) > 9) return 0;
+    if ((t = (unsigned char) (*p++ - '0')) > 9) return 0;
     while ((c = (unsigned char) (*p - '0')) <= 9) { t = t*10 + c; p++; }
   }
 

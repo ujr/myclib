@@ -17,7 +17,8 @@ Code and notes available under the [MIT License](LICENSE).
 - Endian: [Endian.md](doc/Endian.md), [endian.h](src/endian.h), [endian.c](src/endian.c)
 - Scanning: [Scan.md](doc/Scan.md), [scan.h](src/scan.h)
 - Style: [Notes on Programming in C](doc/PikeStyle.md) by Rob Pike
-- Testing: [test.h](src/test.h), [runtests.c](test/runtests.c)
+- Testing: [test.h](src/test.h), [runtests.c](src/runtests.c)
+- Utils: [Utils.md](doc/Utils.md), [myfuns.h](src/myfuns.h)
 
 ## C Standard Library
 
