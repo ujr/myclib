@@ -8,17 +8,24 @@ I also collect here some notes on C and related topics.
 The stuff here may be used as a static library,
 as a “copy-paste” source, or simply as a memory aid.
 
-![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)
+![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)  
 Code and notes available under the [MIT License](LICENSE).
 
 ## Overview
 
-- Buffer: [buf.h](src/buf.h) (header only)
-- Duff's Device: [Duff.md](doc/Duff.md), [duff.c](src/duff.c)
-- Endian: [Endian.md](doc/Endian.md), [endian.h](src/endian.h), [endian.c](src/endian.c)
-- Limits: [limits.c](src/limits.c) to show and test integral limits
-- Scanning: [Scan.md](doc/Scan.md), [scan.h](src/scan.h)
+Notes on C and related tools:
+
+- [Notes on C](doc/C.md): standards, operators, standard library
+- Compile and run [limits.c](src/limits.c) to test and show integer limits
+- Make: [Makefiles.md](doc/Makefiles.md), [Makefile](./Makefile)
 - Style: [Notes on Programming in C](doc/PikeStyle.md) by Rob Pike
+- Duff's Device: [Duff.md](doc/Duff.md), [duff.c](src/duff.c)
+
+Stuff in the library:
+
+- Buffer: [buf.h](src/buf.h) (header only)
+- Endian: [Endian.md](doc/Endian.md), [endian.h](src/endian.h), [endian.c](src/endian.c)
+- Scanning: [Scan.md](doc/Scan.md), [scan.h](src/scan.h)
 - Testing: [test.h](src/test.h), [runtests.c](src/runtests.c)
 - Unix: [Unix.md](doc/Unix.md), [myunix.h](src/myunix.h)
 - Utils: [Utils.md](doc/Utils.md), [myfuns.h](src/myfuns.h)
