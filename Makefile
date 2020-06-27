@@ -14,7 +14,7 @@ check: testsuite
 clean:
 	rm -f bin/* src/*.o
 
-TESTS = src/myfuns_test.o src/scan_test.o
+TESTS = src/buf_test.o src/myfuns_test.o src/scan_test.o
 LIBINCS = src/myfuns.h src/scan.h src/test.h
 LIBOBJS = src/argsplit.o src/basename.o src/streq.o \
   src/scanint.o src/scanuint.o src/scanulong.o src/scanhex.o \
