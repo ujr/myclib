@@ -13,11 +13,14 @@ Code and notes available under the [MIT License](LICENSE).
 
 ## Overview
 
+- Buffer: [buf.h](src/buf.h) (header only)
 - Duff's Device: [Duff.md](doc/Duff.md), [duff.c](src/duff.c)
 - Endian: [Endian.md](doc/Endian.md), [endian.h](src/endian.h), [endian.c](src/endian.c)
+- Limits: [limits.c](src/limits.c) to show and test integral limits
 - Scanning: [Scan.md](doc/Scan.md), [scan.h](src/scan.h)
 - Style: [Notes on Programming in C](doc/PikeStyle.md) by Rob Pike
 - Testing: [test.h](src/test.h), [runtests.c](src/runtests.c)
+- Unix: [Unix.md](doc/Unix.md), [myunix.h](src/myunix.h)
 - Utils: [Utils.md](doc/Utils.md), [myfuns.h](src/myfuns.h)
 
 ## C Standard Library

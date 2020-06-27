@@ -6,7 +6,7 @@ LDFLAGS = -s
 LDLIBS = # -lm
 PREFIX = /usr/local
 
-all: liba testsuite duff endian match
+all: liba testsuite duff endian limits match
 
 check: testsuite
 	bin/runtests
@@ -39,6 +39,10 @@ bin/duff: src/duff.c
 endian: bin/endian
 bin/endian: src/endian.c
 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ -DDEMO $< $(LDLIBS)
+
+limits: bin/limits
+bin/limits: src/limits.c
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $< $(LDLIBS)
 
 match: bin/match
 bin/match: src/scanpat.c
