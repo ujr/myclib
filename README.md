@@ -20,6 +20,7 @@ Notes on C and related tools:
 - Make: [Makefiles.md](doc/Makefiles.md), [Makefile](./Makefile)
 - Style: [Notes on Programming in C](doc/PikeStyle.md) by Rob Pike
 - Duff's Device: [Duff.md](doc/Duff.md), [duff.c](src/duff.c)
+- The syslog facility: [Syslog.md](doc/Syslog.md)
 
 Stuff in the library:
 
