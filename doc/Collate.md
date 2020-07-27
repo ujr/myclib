@@ -1,11 +1,11 @@
 # String Collation
 
 Collation means locale-sensitive string comparison.
-The Stadard C Library provides two functions to determine
+The Standard C Library provides two functions to determine
 how two strings collate in the current locale:
 
 ```C
-#include <strig.h>
+#include <string.h>
 
 int strcoll(const char *s1, const char *s2);
 size_t strxfrm(char *s1, const char *s2, size_t n);
@@ -76,7 +76,7 @@ typedef struct {
     const unsigned short *_Tab[_NSTATE];
 } _Statab;
 
-extern _Statab _Costate, _Mbstate, _Wcstate;
+extern _Statab, _Costate, _Mbstate, _Wcstate;
 ```
 
 ```C
@@ -359,3 +359,95 @@ of the $*x* terms is: `$#` `UCHAR_MAX`, `$@` the table index,
 Modify the locale file in the previous exercise to order names that
 begin with `Mac` interchangeably with names that begin with `Mc`.
 Order `Mac` before `Mc` only if the names otherwise are equal.
+
+---
+
+Citing again from Plauger's 1992 *Standard C Library*:
+
+Several pairs of functions in this implementation use state tables
+to define their behavior. You can specify up to 16 state tables for
+each of the three entity names:
+
+- `collate` – determines `strcoll` and `strxfrm`
+- `mbtowc` – determines `mbtowc` and `mbstowcs`
+- `wctomb` – determines `wctomb` and `wcstombs`
+
+Here is how you can write the specification for the simple state
+table in the file *xstate.c*. It makes the functions `mbtowc` and
+`mbstowcs`, declared in `<stdlib.h>`, perform a one-to-one mapping
+between multibyte and wide characters:
+
+```text
+mb_cur_max         1
+mbtowc[0, 0:$#]    $@ $F $I $O $0
+```
+
+The first line gives the macro `MB_CUR_MAX`, defined in `stdlib.h`,
+the value 1. No multibyte sequence requires more than one character.
+The second line defines all elements of state table zero for `mbtowc`
+and `mbstowcs`. It tells the functions to:
+
+- *fold* the translation value into the accumulated value (`$F`)
+- with the input code *mapped* to itself (`$@`)
+- consume the *input* (`$I`)
+- write the accumulated value as the *output* (`$O`)
+
+The successor state is state zero (`$0`). Translation ends, in
+this case, when a zero input code produces a zero wide character.
+
+Here's another example [taken from exercise 14.1]:
+
+```text
+LOCALE DICT
+NOTE dictionary collation sequence
+collate[0, 0      ] '.'        $O $I $0
+collate[0, 1:$#   ]               $I $0
+collate[0, 'a':'z'] $@         $O $I $0
+collate[0, 'A':'Z'] $@+'a'-'A' $O $I $0
+collate[1, 0:$#   ] $@         $O $I $1
+LOCALE end
+```
+
+This state table folds uppercase letters to lowercase letters,
+maps `\0` to a dot `.` and sets all other entries to zero.
+One state is sufficient (NO IDEA, WHAT STATE 1 IS GOOD FOR?).
+
+The general form is: `table[state, lo:hi] expression`
+
+An expression is simply a sequence of terms that get added together.
+Terms can be added simply by writing them one after the other, plus
+signs are optional. Use a minus sign before a term to subtract.
+
+Decimal, octal, and hexadecimal numbers follow the usual rules of
+C constants. The sequences 10, 012, 0xA all represent the decimal
+value ten.
+
+Single quotes around a character yield the value of the character,
+just as for a character constant in a C source file. (No escape
+sequences, such as '\012', are permitted, however.)
+
+An uppercase letter has the value last assigned by a SET line.
+All such variables are set to zero at program startup.
+
+In addition to these terms, there are special terms signalled
+by a leading dollar sign:
+
+- `$$` – the current contents of a table element.
+- `$@` – the index of a table element.
+  `$$` and `$@`, if present, must precede any other terms in an expression.
+- `$^` – the value of the macro `CHAR_MAX`.
+- `$#` – the value of the macro `UCHAR_MAX`.
+- `$a`, `$b`, `$f`, `$n`, `$r`, `$t`, `$v` – the value of the character
+  escape sequences '\a', '\b', '\f', '\n', '\r', '\t', '\v'.
+- `$A`, `$C`, `$D`, `$H`, `$L`, `$M`, `$P`, `$S`, `$U`, `$W` – the character
+  classification bits used in the table ctype.
+- `$0`, `$1`, `$2`, `$3`, `$4`, `$5`, `$6`, `$7` – the successor states
+  0 through 7 in a state-table element. (No symbols are provided for
+ successor states 8 through 15. Write `$7+$1` for state 8, and so forth.)
+- `$F`, `$I`, `$O`, `$R` – the command bits used in a state-table element.
+  These specify, in order: *fold* translated value into the accumulated
+  value, consume *input*, produce *output*, and *reverse* bytes in the
+  accumulated value.
+
+With these special terms, you can write expressions in locale
+files that don't depend on implementation-specific code values.

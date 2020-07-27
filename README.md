@@ -15,7 +15,7 @@ Code and notes available under the [MIT License](LICENSE).
 
 Notes on C and related tools:
 
-- [Notes on C](doc/C.md): standards, operators, standard library
+- [Notes on C](doc/C.md) and its [Standard Library](doc/CLib.md)
 - Compile and run [limits.c](src/limits.c) to test and show integer limits
 - Make: [Makefiles.md](doc/Makefiles.md), [Makefile](./Makefile)
 - Style: [Notes on Programming in C](doc/PikeStyle.md) by Rob Pike
