@@ -20,13 +20,14 @@ Notes on C and related tools:
 - Make: [Makefiles.md](doc/Makefiles.md), [Makefile](./Makefile)
 - Style: [Notes on Programming in C](doc/PikeStyle.md) by Rob Pike
 - Duff's Device: [Duff.md](doc/Duff.md), [duff.c](src/duff.c)
-- The syslog facility: [Syslog.md](doc/Syslog.md)
+- The syslog facility: [syslog.md](doc/syslog.md)
 
 Stuff in the library:
 
 - Buffer: [buf.h](src/buf.h) (header only)
 - Endian: [Endian.md](doc/Endian.md), [endian.h](src/endian.h), [endian.c](src/endian.c)
-- Scanning: [Scan.md](doc/Scan.md), [scan.h](src/scan.h)
+- Scanning: [scan.md](doc/scan.md), [scan.h](src/scan.h)
+- Growable string: [strbuf.md](doc/strbuf.md), [strbuf.h](src/strbuf.h)
 - Testing: [test.h](src/test.h), [runtests.c](src/runtests.c)
 - Unix: [Unix.md](doc/Unix.md), [myunix.h](src/myunix.h)
 - Utils: [Utils.md](doc/Utils.md), [myfuns.h](src/myfuns.h)
