@@ -8,14 +8,16 @@ PREFIX = /usr/local
 
 all: liba testsuite duff endian limits match
 
-check: testsuite
+check: testsuite liba
 	bin/runtests
 
 clean:
 	rm -f bin/* src/*.o
 
-TESTS = src/buf_test.o src/myfuns_test.o src/strbuf_test.o src/scan_test.o
-LIBINCS = src/myfuns.h src/myunix.h src/scan.h src/strbuf.h src/test.h
+TESTS = src/buf_test.o src/myfuns_test.o src/print_test.o src/scan_test.o \
+  src/strbuf_test.o
+LIBINCS = src/myfuns.h src/myunix.h src/print.h src/scan.h \
+  src/strbuf.h src/test.h
 LIBOBJS = src/argsplit.o src/basename.o src/streq.o src/strbuf.o \
   src/daemonize.o src/fdblocking.o src/fdnonblock.o \
   src/readable.o src/writable.o src/open_read.o src/open_write.o \
@@ -23,7 +25,9 @@ LIBOBJS = src/argsplit.o src/basename.o src/streq.o src/strbuf.o \
   src/scanint.o src/scanuint.o src/scanulong.o src/scanhex.o \
   src/scanblank.o src/scanwhite.o src/scantext.o src/scanpat.o \
   src/scanuntil.o src/scanwhile.o src/scanip4.o src/scanip4op.o \
-  src/scandate.o src/scantime.o
+  src/scandate.o src/scantime.o \
+  src/printu.o src/print0u.o src/printx.o src/print0x.o \
+  src/printd.o src/prints.o src/printsn.o src/format.o
 
 liba: bin/myclib.a
 bin/myclib.a: $(LIBOBJS)

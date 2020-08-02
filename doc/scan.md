@@ -1,5 +1,7 @@
 # The scan.h API
 
+Scanning character representations into values.
+
 ```C
 #include "scan.h"
 
