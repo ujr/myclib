@@ -14,9 +14,9 @@ check: testsuite liba
 clean:
 	rm -f bin/* src/*.o
 
-TESTS = src/buf_test.o src/myfuns_test.o src/print_test.o src/scan_test.o \
+TESTS = src/buf_test.o src/myutils_test.o src/print_test.o src/scan_test.o \
   src/strbuf_test.o
-LIBINCS = src/myfuns.h src/myunix.h src/print.h src/scan.h \
+LIBINCS = src/myutils.h src/myunix.h src/print.h src/scan.h \
   src/strbuf.h src/test.h
 LIBOBJS = src/argsplit.o src/basename.o src/streq.o src/strbuf.o \
   src/daemonize.o src/fdblocking.o src/fdnonblock.o \

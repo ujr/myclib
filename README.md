@@ -31,7 +31,7 @@ Stuff in the library:
 - Growable string: [strbuf.md](doc/strbuf.md), [strbuf.h](src/strbuf.h)
 - Testing: [test.h](src/test.h), [runtests.c](src/runtests.c)
 - Unix: [Unix.md](doc/Unix.md), [myunix.h](src/myunix.h)
-- Utils: [Utils.md](doc/Utils.md), [myfuns.h](src/myfuns.h)
+- Utils: [Utils.md](doc/Utils.md), [myutils.h](src/myutils.h)
 
 ## C Standard Library
 

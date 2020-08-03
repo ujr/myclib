@@ -1,4 +1,4 @@
-#include "myfuns.h"
+#include "myutils.h"
 #include <string.h>
 
 static const char *seps = " \t\n\r\f\v";

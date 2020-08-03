@@ -3,7 +3,7 @@
 Collection of miscellaneous utility functions.
 
 ```C
-#include "myfuns.h"
+#include "myutils.h"
 
 int argsplit(char *s, char *args[], int maxargs);
 char *basename(const char *s);

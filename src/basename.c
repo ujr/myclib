@@ -1,4 +1,4 @@
-#include "myfuns.h"
+#include "myutils.h"
 
 /** Return the basename of a path string, that is, a pointer
  *  to one after the last occurrence of '/' in the argument.

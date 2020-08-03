@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "myfuns.h"
+#include "myutils.h"
 
 void
 myfuns_test(int *pnumpass, int *pnumfail)

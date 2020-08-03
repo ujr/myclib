@@ -1,5 +1,8 @@
-#ifndef _MYFUNS_H_
-#define _MYFUNS_H_
+#ifndef _MYUTILS_H_
+#define _MYUTILS_H_
+
+#include <stddef.h>
+#include <stdio.h>
 
 /* Miscellaneous utility functions */
 

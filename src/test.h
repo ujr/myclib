@@ -11,6 +11,9 @@
  *   SUMMARY(numpass, numfail);
  */
 
+#include <stdio.h>
+#include <string.h>
+
 #if _WIN32
 # define TERMPASS  "PASS"
 # define TERMFAIL  "FAIL"

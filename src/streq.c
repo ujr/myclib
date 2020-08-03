@@ -1,4 +1,4 @@
-#include "myfuns.h"
+#include "myutils.h"
 #include <string.h>
 
 /** Compare strings for equality; args may be null.
