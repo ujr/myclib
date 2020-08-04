@@ -16,6 +16,8 @@ int r;
 z = strbuf_ptr(sp);
 n = strbuf_len(sp);
 n = strbuf_size(sp);
+c = strbuf_char(sp, n);
+strbuf_char(sp, n) = c;
 if (strbuf_failed(sp)) error();
 
 r = strbuf_add(sp, strbuf *sq);
@@ -49,6 +51,10 @@ or **strcmp**(3).
 **sblen** returns the length of the string, excluding
 the terminating zero, and **sbsize** returns the current
 size (capacity) of the buffer.
+
+**sbchar** is a character at position *n* for reading
+or writing; strbuf must be allocated and *n* in range,
+which is not checked!
 
 **sbfailed** returns true after a memory allocation
 has failed.

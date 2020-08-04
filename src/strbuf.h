@@ -23,10 +23,11 @@ typedef struct strbuf {
    thus always zero and terefore redundant; we use it as the
    failed flag (0=normal, 1=failed). */
 
-#define strbuf_ptr(sp) ((sp)->buf)
-#define strbuf_len(sp) ((sp)->buf ? (sp)->len : 0)
-#define strbuf_size(sp)   ((sp)->buf ? ((sp)->size & ~1) : 0)
-#define strbuf_failed(sp) ((sp)->size & 1)
+#define strbuf_ptr(sp)     ((sp)->buf ? (sp)->buf : "")
+#define strbuf_char(sp, i) ((sp)->buf[i])
+#define strbuf_len(sp)     ((sp)->buf ? (sp)->len : 0)
+#define strbuf_size(sp)    ((sp)->buf ? ((sp)->size & ~1) : 0)
+#define strbuf_failed(sp)  ((sp)->size & 1)
 
 extern int strbuf_add(strbuf *sp, strbuf *sq);
 extern int strbuf_addc(strbuf *sp, int c);
@@ -42,8 +43,9 @@ extern void strbuf_free(strbuf *sp);
 /* Define short names */
 
 #ifndef STRBUF_NO_SHORT_NAMES
-#define sbptr    strbuf_buffer
-#define sblen    strbuf_length
+#define sbptr    strbuf_ptr
+#define sbchar   strbuf_char
+#define sblen    strbuf_len
 #define sbsize   strbuf_size
 #define sbfailed strbuf_failed
 #define sbadd    strbuf_add

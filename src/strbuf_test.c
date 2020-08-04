@@ -41,6 +41,8 @@ strbuf_test(int *pnumpass, int *pnumfail)
   TEST("trunc 5", STREQ(sp->buf, "Hello") && INVARIANTS(sp));
   strbuf_addf(sp, "+%d-%d=%s", 3, 4, "konfus");
   TEST("addf", STREQ(sp->buf, "Hello+3-4=konfus") && INVARIANTS(sp));
+  sbchar(sp, 10) = 'Q';
+  TEST("char", sbchar(sp, 10) == 'Q');
   strbuf_trunc(sp, 0);
   TEST("trunc 0 (buf)", STREQ(sp->buf, "") && INVARIANTS(sp));
   TEST("trunc 0 (len)", strbuf_len(sp) == 0 && INVARIANTS(sp));

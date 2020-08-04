@@ -82,11 +82,22 @@ void foo(int *p) {
 }
 ```
 
-Dereferencing a null pointer is always undefined,
-even if it happens in dead code. Therefore, in the
-code above a compiler may conclude that p is not
-null and optimize away anything but the assignment,
+Dereferencing a null pointer is always undefined, even
+if it happens in dead code. Therefore, an implementation
+may assume that any pointer that *is* dereferenced is
+not NULL. In the code above a compiler may conclude that
+`p` is not NULL and optimize away anything but the assignment,
 with catastrophic effects.
+
+The `offsetof` macro from `<stddef.h>` could be implemented as
+
+```C
+#define offsetof(t, m) ((size_t)&(((t *)0)->m))
+```
+
+but here a pointer to the zero address, the typical
+implementation of the NULL pointer, is dereferenced,
+so this implementation is most likely invalid.
 
 ## References
 

@@ -16,8 +16,8 @@ Code and notes available under the [MIT License](LICENSE).
 Notes on C and related tools:
 
 - [Notes on C](doc/C.md) and its [Standard Library](doc/CLib.md)
-- Compile and run [limits.c](src/limits.c) to test and show integer limits
-- Make: [Makefiles.md](doc/Makefiles.md), [Makefile](./Makefile)
+- [Notes on POSIX](doc/POSIX.md), a standard for portable programs
+- Integer limits: compile and run [limits.c](src/limits.c)
 - Style: [Notes on Programming in C](doc/PikeStyle.md) by Rob Pike
 - Duff's Device: [Duff.md](doc/Duff.md), [duff.c](src/duff.c)
 - The syslog facility: [syslog.md](doc/syslog.md)
@@ -32,6 +32,21 @@ Stuff in the library:
 - Testing: [test.h](src/test.h), [runtests.c](src/runtests.c)
 - Unix: [Unix.md](doc/Unix.md), [myunix.h](src/myunix.h)
 - Utils: [Utils.md](doc/Utils.md), [myutils.h](src/myutils.h)
+
+Tools
+
+- Make, [Makefiles](doc/Makefiles.md) in general,
+  and our [Makefile](./Makefile) as an example
+- GCC and GDB are the GNU Compiler Collection and the GNU Debugger;
+  together with GNU Make they form the “GNU Toolchain”, to which you
+  may add Binutils (as, ld, nm, strip, etc.), Autotools, and Bison.
+- [Valgrind](https://www.valgrind.org) is a free memory debugging tool:
+  compile with `-g` and `-O0` or `-O1`, then run the executable
+  under Valgrind control with `valgrind --leak-check=full myprog`.
+- [EditorConfig](https://editorconfig.org) is a recent *de facto*
+  standard for consistent formatting, supported by ever more editors.
+  A file named *.editorconfig* in the project root (or a subdirectory)
+  provides preferences for encoding, line ending, and indentation.
 
 ## C Standard Library
 

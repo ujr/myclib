@@ -2,7 +2,7 @@
 
 The standard library is an integral part of the C standard.
 The functionality of the ANSI C Standard Library is declared
-in the following headers. Other headers, like `<stdint.h>`
+in the following headers. Other headers, like `<stdint.h>`,
 are not part of the ANSI C standard.
 
 |Header|Remarks|
@@ -62,6 +62,31 @@ The `_STR` and `_VAL` trickery converts `__LINE__`
 evaluates to the string `"13"`, such that the `_assert`
 function is called with a literal string argument like
 `"foo.c:13 bar > 0"`.
+
+## Standard Type Definitions
+
+The `<stddef.h>` header provides a few standard type definitions:
+
+- `NULL` – the null pointer constant, a macro usually
+  defined to be `(void *) 0`
+- `offsetof(type, member)` – integer offset of the field
+  *member* from the beginning of the structure *type*.
+- `size_t` – an *unsigned integer*,
+  the type of the result of the `sizeof` operator.
+- `ptrdiff_t` – a *signed integer*,
+  the type of the result of subtracting two pointers.
+- `wchar_t` – an integer type to represent wide characters, large
+  enough for the largest character set among the supported locales.
+
+Notes:
+
+- **Prefer UTF-8** over wide characters; do not use `wchar_t`.
+  See also: [utf8everywhere.org](https://utf8everywhere.org)
+- Dereferencing a NULL pointer is **undefined in C**;
+  therefore, an implementation may assume that any pointer
+  that is dereferenced is not NULL.
+- `ssize_t` is **not** part of the C standard (it is part
+  of POSIX and defined in the `<sys/types.h>` header).
 
 ## Character Types
 
