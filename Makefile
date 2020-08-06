@@ -19,6 +19,7 @@ TESTS = src/buf_test.o src/myutils_test.o src/print_test.o src/scan_test.o \
 LIBINCS = src/myutils.h src/myunix.h src/print.h src/scan.h \
   src/strbuf.h src/test.h
 LIBOBJS = src/argsplit.o src/basename.o src/streq.o src/strbuf.o \
+  src/getln.o src/getln2.o src/getln3.o src/eatln.o \
   src/daemonize.o src/fdblocking.o src/fdnonblock.o \
   src/readable.o src/writable.o src/open_read.o src/open_write.o \
   src/open_append.o src/open_trunc.o src/open_excl.o \
