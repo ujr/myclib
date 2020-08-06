@@ -3,24 +3,24 @@
 The standard library is an integral part of the C standard.
 The functionality of the ANSI C Standard Library is declared
 in the following headers. Other headers, like `<stdint.h>`,
-are not part of the ANSI C standard.
+are **not** part of the ANSI C standard.
 
 |Header|Remarks|
 |------|-------|
 |`<assert.h>` | assertions: the `assert()` macro|
 |`<ctype.h>`  | character classification: `isalpha()` etc.|
-|`<errno.h>`  | the `errno` expression and the `EXXX` constants|
+|`<errno.h>`  | the `errno` symbol and the `EXXX` constants|
 |`<float.h>`  | various float and double constants|
 |`<limits.h>` | size of integral types: `XXX_MIN` and `XXX_MAX` (see [limits.c](../src/limits.c))|
 |`<locale.h>` | localisation: `setlocale()` and `localeconv()`|
-|`<math.h>`   | math functions: `sin()`, `atan2()`, `sqrt()`, etc.|
+|`<math.h>`   | math functions: `atan2()`, `sqrt()`, etc.|
 |`<setjmp.h>` | non-local jumps: `setjmp()` and `longjmp()`|
 |`<signal.h>` | signal processing: `raise()` and `signal()`|
-|`<stdarg.h>` | access to variable argument lists: `va_list` etc.|
+|`<stdarg.h>` | variable argument lists: `va_list` etc.|
 |`<stddef.h>` | `NULL`, `size_t`, `ptrdiff_t`, `wchar_t`, `offsetof()`|
-|`<stdio.h>`  | input and output streams: `fopen()`, `printf()`, etc.|
+|`<stdio.h>`  | I/O streams: `fopen()`, `printf()`, etc.|
 |`<stdlib.h>` | memory allocation, random numbers, and varia|
-|`<string.h>` | string and memory functions: `strxxx()` and `memxxx()`|
+|`<string.h>` | strings and byte arrays: `strxxx()` and `memxxx()`|
 |`<time.h>`   | getting and formatting time: `time()`, `strftime()`, etc.|
 
 ## Assertions
@@ -62,6 +62,39 @@ The `_STR` and `_VAL` trickery converts `__LINE__`
 evaluates to the string `"13"`, such that the `_assert`
 function is called with a literal string argument like
 `"foo.c:13 bar > 0"`.
+
+## Error Codes
+
+The `<errno.h>` header provides the *errno* symbol
+and a number of error codes like `EDOM` and `ERANGE`.
+At program startup, *errno* is zero. Many library
+functions may set it to a positive value to indicate
+an error.
+
+In the olden days, *errno* was an ordinary global `int`
+variable, but with the advent of multi-threading, *errno*
+became a macro that expands to a thread-local lvalue.
+Therefore, a declaration like `extern int errno;` is an
+invalid substitute for the correct `#include <errno.h>`.
+
+Standard C requires only three error codes: `EDOM`
+(domain error), `ERANGE` (result out of range), and
+`EILSEQ` (a multi-byte encoding error). The vast
+majority of the other, better known, error codes
+are from POSIX: `EINVAL` (invalid arguments),
+`ENOMEM` (out of memory), `EACCESS` (permission denied),
+`EMFILE` (too many open files), etc.
+
+Beware that you may want to preserve *errno* across library
+calls, for example:
+
+```C
+if (f() == NULL) {
+  int saverr = errno;
+  printf("Oops, f() failed\n"); /* may set errno! */
+  if (saverr == EAGAIN) ...
+}
+```
 
 ## Standard Type Definitions
 
@@ -516,7 +549,8 @@ int (raise)(int sig)
 #include <stdio.h>
 #include <stdlib.h>
 
-   /* static data */
+/* see if required types and constants are defined and
+   properly typed (signal and raise are exercised below) */
 static int sigs[] = {
   SIGABRT, SIGFPE, SIGILL, SIGINT, SIGSEGV, SIGTERM };
 static void (*rets[])(int) = {SIG_DFL, SIG_ERR, SIG_IGN};
@@ -537,6 +571,207 @@ int main()  /* test basic workings of signal functions */
   raise(SIGFPE);
   puts("FAILURE testing <signal.h>");
   return EXIT_FAILURE;
+}
+```
+
+## Input and Output
+
+The `<stdio.h>` header provides input, output, and formatting
+facilities. Files and other data sources/sinks are abstracted
+as *streams* by `FILE` objects. Three such streams are already
+open at program startup: the standard input, output, and error
+streams, named `stdin`, `stdout`, and `stderr`. For brevity,
+the descriptions below use *fn* for filenames and *fp* for
+streams (FILE pointer). For details consult the manual pages.
+
+### File operations
+
+```C
+FILE *fopen(const char *fn, const char *mode);
+FILE *freopen(const char *fn, const char *mode, FILE *fp);
+FILE *tmpfile(void);         /* create temporary file */
+int fileno(FILE *fp);        /* file descriptor for stream, POSIX */
+int setvbuf(FILE *fp, char *buf, int mode, size_t size);
+void setbuf(FILE *fp, char *buf);
+int fflush(FILE *fp);        /* write buffered data */
+int fclose(FILE *fp);        /* flush buffer close stream */
+
+int remove(const char *fn);
+int rename(const char *oldname, const char *newname);
+char *tmpnam(char s[]);      /* DO NOT USE */
+
+size_t fread(void *ptr, size_t size, size_t nobj, FILE *fp);
+size_t fwrite(const void *ptr, size_t size, size_t nobj, FILE *fp);
+
+int getchar(void);           /* getc(stdin) */
+int getc(FILE *fp);          /* may be a macro */
+int fgetc(FILE *fp);         /* always a function */
+char *fgets(char *buf, int size, FILE *fp);
+char *gets(char *buf);       /* DO NOT USE */
+int ungetc(int c, FILE *fp); /* put c back onto stream */
+
+int putchar(int c);          /* putc(c, stdout) */
+int putc(int c, FILE *fp);   /* may be a macro */
+int fputc(int c, FILE *fp);  /* always a function */
+int puts(const char *s);     /* write s and a '\n' to stdout */
+int fputs(const char *s, FILE *fp); /* write s to fp */
+
+int printf(const char *fmt, ...);  /* to stdout */
+int fprintf(FILE *fp, const char *fmt, ...);
+int sprintf(char *buf, const char *fmt, ...);
+int snprintf(char *buf, size_t size, const char *fmt, ...); /* C99 */
+
+int vprintf(const char *fmt, va_list ap);
+int vfprintf(FILE *fp, const char *fmt, va_list ap);
+int vsprintf(char *buf, const char *fmt, va_list ap);
+int vsnprintf(char *buf, size_t size, const char *fmt, va_list ap); /* C99 */
+
+int scanf(const char *fmt, ...);  /* from stdin */
+int fscanf(FILE *fp, const char *fmt, ...);
+int sscanf(char *s, const char *fmt, ...);
+
+long ftell(FILE *fp);        /* get current file position */
+int fseek(FILE *fp, long offset, int origin); /* set file position */
+void rewind(FILE *fp);       /* seek to beginning of file, clearerr */
+int fgetpos(FILE *fp, fpos_t *ptr);
+int fsetpos(FILE *fp, const fpos_t *ptr);
+
+int feof(FILE *fp);          /* non-zero iff EOF flag set */
+int ferror(FILE *fp);        /* non-zero iff error flag set */
+void clearerr(FILE *fp);     /* clear eof and error flags */
+void perror(const char *s);  /* system error message to stderr */
+```
+
+Notes:
+
+- printf: the `l` length modifier indicates the argument is
+  of type `long` or instead of `int`; the `h` length modifier
+  indicates the argument is of type `short` instead of `int`.
+- printf: the `z` length modifier is for `size_t` or `ssize_t`
+  arguments, and `t` is for `ptrdiff_t` arguments
+- `snprintf` and `vsnprintf` appeared with C99.
+- `fileno` is from POSIX, not from the C standard library.
+
+### Implementation
+
+K&R provide an implementation of `fopen` and `getc` on top
+of a Unix system as an example of C in use. The stream type
+`FILE` is a structure that holds the Unix file descriptor,
+a buffer, and some flags. By convention, names beginning
+with an underscore are meant for library-internal use only.
+
+Header stuff:
+
+```C
+#define NULL      0
+#define EOF       (-1)
+#define BUFSIZ    1024
+#define OPEN_MAX  20   /* max #files open at once */
+
+typedef struct _iobuf {
+    int  cnt;          /* characters left */
+    char *ptr;         /* next character position */
+    char *base;        /* location of buffer */
+    int  flag;         /* mode of file access */
+    int  fd;           /* file descriptor */
+} FILE;
+extern FILE _iob[OPEN_MAX];
+
+#define stdin   (&_iob[0])
+#define stdout  (&_iob[1])
+#define stderr  (&_iob[2])
+
+enum _flags {
+    _READ   = 01,      /* file open for reading */
+    _WRITE  = 02,      /* file open for writing */
+    _UNBUF  = 04,      /* file is unbuffered */
+    _EOF    = 010,     /* EOF has occurred on this file */
+    _ERR    = 020      /* error occurred on this file */
+};
+
+int _fillbuf(FILE *);
+int _flushbuf(int, FILE *);
+
+#define feof(p)     (((p)->flag & _EOF) != 0)
+#define ferror(p)   (((p)->flag & _ERR) != 0)
+#define fileno(p)   ((p)->fd)
+
+#define getc(p)    (--(p)->cnt >= 0 \
+    ? (unsigned char) *(p)->ptr++ : _fillbuf(p))
+#define putc(x,p)  (--(p)->cnt >= 0 \
+    ? *(p)->ptr++ = (x) : _flushbuf((x),p))
+
+#define getchar()   getc(stdin)
+#define putchar(x)  putc((x), stdout)
+```
+
+The implementation maintains a list of `FILE` structures
+and calls upon Unix file services:
+
+```C
+#include <fcntl.h>
+#include "syscalls.h"
+#define PERMS 0666   /* RW for owner, group, others */
+
+FILE _iob[OPEN_MAX] = {  /* stdin, stdout, stderr: */
+    { 0, (char *) 0, (char *) 0, _READ, 0 },
+    { 0, (char *) 0, (char *) 0, _WRITE, 1 },
+    { 0, (char *) 0, (char *) 0, _WRITE | _UNBUF, 2 }
+};
+
+/* fopen: open file, return file ptr */
+FILE *fopen(char *name, char *mode)
+{
+  int fd;
+  FILE *fp;
+
+  if (*mode != 'r' && *mode != 'w' && *mode != 'a')
+    return NULL;
+  for (fp = _iob; fp < _iob + OPEN_MAX; fp++)
+    if ((fp->flag & (_READ | _WRITE)) == 0)
+      break;  /* found free slot */
+  if (fp >= _iob + OPEN_MAX)  /* no free slots */
+    return NULL;
+  
+  if (*mode == 'w')
+    fd = creat(name, PERMS);
+  else if (*mode == 'a') {
+    if ((fd = open(name, O_WRONLY, 0)) == -1)
+      fd = creat(name, PERMS);
+    lseek(fd, 0L, 2);
+  } else
+    fd = open(name, O_RDONLY, 0);
+  if (fd == -1)  /* couldn't access name */
+    return NULL;
+  fp->fd = fd;
+  fp->cnt = 0;
+  fp->base = NULL;
+  fp>flag = (*mode == 'r') ? _READ : _WRITE;
+  return fp;
+}
+
+/* _fillbuf: allocate and fill input buffer */
+int _fillbuf(FILE *fp)
+{
+  int bufsize;
+
+  if ((fp->flag & (_READ|_EOF|_ERR)) != _READ)
+    return EOF;
+  bufsize = (fp->flag & _UNBUF) ? 1 : BUFSIZ;
+  if (fp->base == NULL)  /* no buffer yet */
+    if ((fp->base = (char *) malloc(bufsize)) == NULL)
+      return EOF;
+  fp->ptr = fp->base;
+  fp->cnt = read(fp->fd, fp->ptr, bufsize);
+  if (--fp->cnt < 0) {
+    if (fp->cnt == -1)
+      fp->flag |= _EOF;
+    else
+      fp->flag |= _ERR;
+    fp->cnt = 0;
+    return EOF;
+  }
+  return (unsigned char) *fp->ptr++;
 }
 ```
 

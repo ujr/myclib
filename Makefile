@@ -6,7 +6,7 @@ LDFLAGS = -s
 LDLIBS = # -lm
 PREFIX = /usr/local
 
-all: liba testsuite duff endian limits match
+all: liba testsuite duff endian limits match random
 
 check: testsuite liba
 	bin/runtests
@@ -55,6 +55,10 @@ bin/limits: src/limits.c
 match: bin/match
 bin/match: src/scanpat.c
 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ -DDEMO $< $(LDLIBS)
+
+random: bin/random
+bin/random: src/random.c
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $< $(LDLIBS)
 
 .c.o:
 	$(CC) $(CFLAGS) -c -o $@ $<

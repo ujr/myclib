@@ -61,6 +61,16 @@ There are several implementations, including
 or [musl libc](https://musl.libc.org/) (especially
 for static linking).
 
+## Conventions
+
+Short variable names:
+
+- `c` for characters
+- `i`, `j`, `k` for indices
+- `n`, `m` for counts and counters
+- `p`, `q` for pointers
+- `s`, `t`, `z` for zero-terminated strings
+
 ## Literature
 
 Classics on C programming and Unix programming are:
