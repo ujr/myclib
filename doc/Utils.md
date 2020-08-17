@@ -13,6 +13,10 @@ long getln(FILE* fp, strbuf *sp, int *partial);
 long getln2(FILE *fp, char **buf, size_t *size);
 long getln3(FILE *fp, char *buf, size_t *size, int *more);
 size_t eatln(FILE *fp);
+
+size_t utcscan(const char *s, struct tm *tp);
+size_t utcstamp(char buf[], char sep);
+#define UTCSTAMPLEN 20
 ```
 
 **argsplit** splits the string *s* into individual arguments
@@ -111,3 +115,19 @@ an error, but then the idiomatic `while ((n=getln(...)) > 0) ...`
 would become more cumbersome.
 
 ---
+
+**utcscan:** scan a UTC stamp in ISO 8601 format
+(`yyyy-mm-ddThh:mm:ssZ`) and return the number of
+chars scanned, usually 20, but may be different in
+case of leading blanks or multiple blanks separating
+the date from the time (instead of the single `T`)
+or an year less than 1000 or greater than 9999.
+
+**utcstamp:** write the current system time (UTC)
+in ISO 8601 format into the buffer provided. Separate
+the date from the time with the character in *sep*
+(if *sep* is `0`, write the `T` required by ISO 8601).
+The buffer must be at least `UTCSTAMPLEN` chars long.
+If the current year is less than 1000 or greater than
+9999, it will be written as the string `xxxx`.
+Return the number of characters written.

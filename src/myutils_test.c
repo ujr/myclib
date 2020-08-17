@@ -5,6 +5,7 @@
 #include <assert.h>
 #include <stdio.h>
 #include <string.h>
+#include <time.h>
 
 #include "myutils.h"
 #include "strbuf.h"
@@ -21,6 +22,7 @@ myutils_test(int *pnumpass, int *pnumfail)
   long n;
   char *line;
   size_t size;
+  struct tm tm;
 
   int numpass = 0;
   int numfail = 0;
@@ -120,6 +122,18 @@ myutils_test(int *pnumpass, int *pnumfail)
   n = getln3(fp, line, size, &partial);
   TEST("getln3 eof", n == 0 && STREQ("", line) && !partial);
   fclose(fp);
+
+  HEADING("Testing utcscan()/utcstamp()");
+  n = utcscan("1977-02-25T12:34:56Z", &tm);
+  TEST("utcscan", n == 20 &&
+    tm.tm_year == 77 && tm.tm_mon == 1 && tm.tm_mday == 25 &&
+    tm.tm_hour == 12 && tm.tm_min == 34 && tm.tm_sec == 56);
+  n = utcscan(" \t 1977-02-25 \t 12:34:56Z ", &tm);
+  TEST("utscan padded", n == 25);
+  n = utcstamp(buf, 0);
+  TEST("utcstamp", n == 20);
+  buf[n] = 0;
+  INFO("UTCSTAMP: %s", buf);
 
   *pnumpass += numpass;
   *pnumfail += numfail;
