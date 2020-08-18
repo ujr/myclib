@@ -29,6 +29,7 @@ Stuff in the library:
 - Formatting: [print.md](doc/print.md), [print.h](src/print.h)
 - Scanning: [scan.md](doc/scan.md), [scan.h](src/scan.h)
 - Growable string: [strbuf.md](doc/strbuf.md), [strbuf.h](src/strbuf.h)
+- Simple I/O: [simpleio.md](doc/simpleio.md), [simpleio.h](src/simpleio.h)
 - Testing: [test.h](src/test.h), [runtests.c](src/runtests.c)
 - Unix: [Unix.md](doc/Unix.md), [myunix.h](src/myunix.h)
 - Utils: [Utils.md](doc/Utils.md), [myutils.h](src/myutils.h)

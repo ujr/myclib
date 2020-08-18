@@ -84,3 +84,14 @@ the strbuf to the unallocated state (which also clears
 the failed flag).
 
 Since 2006-06-09
+
+---
+
+Many similar dynamic string libraries exist. Somewhat
+known is the “Simple Dynamic String” library (SDS),
+available from [github.com/antirez/sds][sds].
+It “hides” the housekeeping stuff and returns
+a pointer directly to the char buffer, in the same
+way as does the [buf.h](../src/buf.h) API.
+
+[sds]: https://github.com/antirez/sds
