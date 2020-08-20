@@ -12,6 +12,7 @@ extern void buf_test(int *pnumpass, int *pnumfail);
 extern void strbuf_test(int *pnumpass, int *pnumfail);
 extern void myutils_test(int *pnumpass, int *pnumfail);
 extern void simpleio_test(int *pnumpass, int *pnumfail);
+extern void scf_test(int *pnumpass, int *pnumfail);
 
 int
 main(int argc, char **argv)
@@ -28,6 +29,7 @@ main(int argc, char **argv)
   strbuf_test(&numpass, &numfail);
   myutils_test(&numpass, &numfail);
   simpleio_test(&numpass, &numfail);
+  scf_test(&numpass, &numfail);
 
   SUMMARY(numpass, numfail);
   return numfail > 0 ? 1 : 0;

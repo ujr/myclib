@@ -6,7 +6,7 @@ LDFLAGS = -s
 LDLIBS = # -lm
 PREFIX = /usr/local
 
-all: liba testsuite duff endian limits match random
+all: liba testsuite argparse duff endian limits match random
 
 check: testsuite liba
 	bin/runtests
@@ -15,11 +15,11 @@ clean:
 	rm -f bin/* src/*.o
 
 TESTS = src/buf_test.o src/myutils_test.o src/print_test.o src/scan_test.o \
-  src/strbuf_test.o src/simpleio_test.o
+  src/strbuf_test.o src/simpleio_test.o src/scf_test.o
 LIBINCS = src/myutils.h src/myunix.h src/print.h src/scan.h \
-  src/strbuf.h src/simpleio.h src/test.h
+  src/strbuf.h src/simpleio.h src/scf.h src/test.h
 LIBOBJS = src/argsplit.o src/basename.o src/streq.o src/strbuf.o \
-  src/getln.o src/getln2.o src/getln3.o src/eatln.o \
+  src/getln.o src/getln2.o src/getln3.o src/eatln.o src/scf.o \
   src/simpleio.o src/utcscan.o src/utcstamp.o src/utcinit.o \
   src/daemonize.o src/fdblocking.o src/fdnonblock.o \
   src/readable.o src/writable.o src/open_read.o src/open_write.o \
@@ -40,6 +40,10 @@ bin/myclib.a: $(LIBOBJS)
 testsuite: bin/runtests
 bin/runtests: src/runtests.c bin/myclib.a $(TESTS) $(LIBINCS)
 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $< $(TESTS) bin/myclib.a $(LDLIBS)
+
+argparse: bin/argparse
+bin/argparse: src/scf.c
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ -DDEMO $< $(LDLIBS)
 
 duff: bin/duff
 bin/duff: src/duff.c

@@ -25,6 +25,7 @@ Notes on C and related tools:
 Stuff in the library:
 
 - Buffer: [buf.h](src/buf.h) (header only)
+- Command line parsing: [scf.md](doc/scf.md), [scf.h](src/scf.h)
 - Endian: [Endian.md](doc/Endian.md), [endian.h](src/endian.h), [endian.c](src/endian.c)
 - Formatting: [print.md](doc/print.md), [print.h](src/print.h)
 - Scanning: [scan.md](doc/scan.md), [scan.h](src/scan.h)
