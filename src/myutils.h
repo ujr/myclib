@@ -18,6 +18,10 @@ extern long getln2(FILE *fp, char **buf, size_t *size);
 extern long getln3(FILE *fp, char *buf, size_t size, int *partial);
 extern size_t eatln(FILE *fp);
 
+#define ENDIAN_LITTLE  1    /* little endian: lsb at lowest mem addr */
+#define ENDIAN_BIG     2    /* big endian: msb at lowest mem addr */
+extern int getendian(void); /* return one of the costants above */
+
 #define UTCSTAMPLEN 20 /* #bytes in a UTCSTAMP */
 
 extern size_t utcscan(const char *s, struct tm *tp);

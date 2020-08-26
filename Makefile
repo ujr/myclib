@@ -20,7 +20,7 @@ LIBINCS = src/myutils.h src/myunix.h src/print.h src/scan.h \
   src/strbuf.h src/simpleio.h src/scf.h src/test.h
 LIBOBJS = src/argsplit.o src/basename.o src/streq.o src/strbuf.o \
   src/getln.o src/getln2.o src/getln3.o src/eatln.o src/scf.o \
-  src/simpleio.o src/utcscan.o src/utcstamp.o src/utcinit.o \
+  src/simpleio.o src/utcscan.o src/utcstamp.o src/utcinit.o src/endian.o \
   src/daemonize.o src/fdblocking.o src/fdnonblock.o \
   src/readable.o src/writable.o src/open_read.o src/open_write.o \
   src/open_append.o src/open_trunc.o src/open_excl.o \
@@ -50,7 +50,7 @@ bin/duff: src/duff.c
 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $< $(LDLIBS)
 
 endian: bin/endian
-bin/endian: src/endian.c
+bin/endian: src/endian.c src/myutils.h
 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ -DDEMO $< $(LDLIBS)
 
 limits: bin/limits

@@ -1,4 +1,4 @@
-#include "endian.h"
+#include "myutils.h"
 
 /* Assumes sizeof(long) > sizeof(char) */
 

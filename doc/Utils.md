@@ -14,6 +14,10 @@ long getln2(FILE *fp, char **buf, size_t *size);
 long getln3(FILE *fp, char *buf, size_t *size, int *more);
 size_t eatln(FILE *fp);
 
+#define ENDIAN_LITTLE 1
+#define ENDIAN_BIG    2
+int getendian(void);
+
 size_t utcscan(const char *s, struct tm *tp);
 size_t utcstamp(char buf[], char sep);
 #define UTCSTAMPLEN 20
@@ -113,6 +117,14 @@ purpose, but it is not part of ANSI C. We could return `size_t`
 (which is unsigned) and reserve a value like `(size_t)-1` to signal
 an error, but then the idiomatic `while ((n=getln(...)) > 0) ...`
 would become more cumbersome.
+
+---
+
+**getendian:** determine the “endian” of the machine;
+return `ENDIAN_BIG` if big endian (most significant
+byte stored at lowest memory address) or `ENDIAN_LITTLE`
+if little endian (least significant byte stored at
+lowest memory address).
 
 ---
 

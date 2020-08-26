@@ -40,10 +40,10 @@ if (*((char*)&v) == 1) { /* LITTLE ENDIAN: v stored as 0x0100..00 */ }
 else { /* BIG ENDIAN: v stored as 0x00...01 */ }
 ```
 
-This is implemented in *endian.h* and *endian.c*; usage:
+This is implemented as `getendian()` in *myutils.h*; usage:
 
 ```C
-#include "endian.h"
+#include "myutils.h"
 
 int endian = getendian();
 
