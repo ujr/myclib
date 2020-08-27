@@ -114,6 +114,7 @@ strbuf_ready(strbuf *sp, size_t dlen)
   newsize = (newsize+1)&~1; // round up to even
   char *ptr = realloc(sp->buf, newsize);
   if (!ptr) goto nomem;
+  memset(ptr + sp->len, 0, newsize - sp->len);
 
   sp->buf = ptr;
   sp->size = newsize;
