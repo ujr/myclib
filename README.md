@@ -26,6 +26,7 @@ Stuff in the library:
 
 - Buffer: [buf.h](src/buf.h) (header only)
 - Command line parsing: [scf.md](doc/scf.md), [scf.h](src/scf.h)
+- Config (INI) file parsing: [iniconf.md](doc/iniconf.md), [iniconf.h](src/iniconf.h)
 - Endian: [Endian.md](doc/Endian.md), [endian.c](src/endian.c)
 - Formatting: [print.md](doc/print.md), [print.h](src/print.h)
 - Scanning: [scan.md](doc/scan.md), [scan.h](src/scan.h)
@@ -72,6 +73,9 @@ Short variable names:
 - `n`, `m` for counts and counters
 - `p`, `q` for pointers
 - `s`, `t`, `z` for zero-terminated strings
+
+- `fn` for a filename (`const char *`)
+- `fp` for a `FILE` pointer
 
 ## Literature
 
