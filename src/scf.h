@@ -1,5 +1,5 @@
-#ifndef _SCF_H_
-#define _SCF_H_
+#ifndef SCF_H
+#define SCF_H
 
 /* scf.h - standard command format parsing */
 

@@ -12,7 +12,7 @@ void closelog(void);
 ```
 
 The use of **openlog** and **closelog** is optional, but
-`openlog(3)` may be handy to specify *how* syslog should log.
+`openlog(3)` may be handy to specify how syslog should log.
 The *tag* will be prepended to each log message (usually the
 program's name); *option* is a combination of
 `LOG_CONS` (if there's an error logging, write to the console),
@@ -66,7 +66,7 @@ The config information is usually in */etc/syslog.conf*.
 ## Example
 
 The following lines are taken from the venerable *lprps*
-printer filter. During initialisaiton it says:
+printer filter. During initialisation it says:
 
 ```C
 openlog("lprps", LOG_PID, LOG_LPR);

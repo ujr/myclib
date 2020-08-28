@@ -1,7 +1,7 @@
 # The strbuf.h API
 
 Provides growable character buffers that are always
-zero-terminated and therefore valid C string.
+zero-terminated and therefore valid C strings.
 
 ```C
 #include "strbuf.h"

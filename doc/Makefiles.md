@@ -1,17 +1,17 @@
 # Makefiles
 
-Consider sticking to POSIX make features only.
+Consider **sticking to POSIX make** features only.
 This trades compatibility for features.
 If doing so, state `.POSIX:` in the first non-comment line
 to (1) document your intention and (2) request POSIX compliant
 behaviour (vendor extensions are still available).
 
-Do not use recursive Makefiles (breaks the dependency tree and results
+Do not use **recursive Makefiles** (breaks the dependency tree and results
 in fragile builds); instead, have one Makefile at the root of the project.
 To refer to files in subdirectories, include the subdirectory in the name,
 for example: `obj/main.o: src/main.c`.
 
-Beware that out-of-source builds (putting .o files in a separate
+Beware that **out-of-source builds** (putting .o files in a separate
 directory from the .c files) is not compatible with inference rules.
 
 The special target `.SUFFIXES:` (without a value) clears the list

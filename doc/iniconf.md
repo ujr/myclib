@@ -66,7 +66,7 @@ by this EBNF grammar:
   NewLine =  LF | CRLF | CR
 ```
 
-- Blanks (space or tab) may appear between any tokens and will be ignored.
+- Blanks (space or tab) may appear between tokens and will be ignored.
 - Empty or blank lines are allowed and will be skipped.
 - Text tokens can be continued to the next line
   by ending them with a backslash.
@@ -97,8 +97,8 @@ oops = 42 # this is not a comment!
 When called on the above INI file, the *handler*
 would be called 5 times as follows:
 
-1. `""`, `"global"`, `"true"`, 2
-2. `"user"`, `"name"`, `"John Smith"`, 5
-3. `"user"`, `"mail"`, `"john@smith.com"`, 6
-4. `"user"`, `"description"`, `"Lines can be continued by ..."`, 7
-5. `"user"`, `"oops"`, `"42 # this is not a comment!"`, 11
+1. `""`, `"global"`, `"true"`, `2`
+2. `"user"`, `"name"`, `"John Smith"`, `5`
+3. `"user"`, `"mail"`, `"john@smith.com"`, `6`
+4. `"user"`, `"description"`, `"Lines can be continued by ..."`, `7`
+5. `"user"`, `"oops"`, `"42 # this is not a comment!"`, `11`

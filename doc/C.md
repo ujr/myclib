@@ -6,7 +6,7 @@
 of *The C Programming Language* by Kernighan and Ritchie.
 C was standardized by ANSI in 1989, and the second edition (1988)
 of *The C Programming Language* describes this revised version
-of C, known as **ANSI C** or **C89**. As compilers added features
+of C, known as **ANSI C** or **C89**. As compilers added features,
 C was standardized again in 1999, creating the **C99** dialect.
 The same happened again in 2011, creating the **C11** dialect.
 Today it is probably save to assume that C99 is supported
@@ -14,7 +14,7 @@ by your compiler. Some of the new C99 features are:
 
 - C++ style line comments: `// comment`
 - the Boolean data type (`_Bool`, stdbool.h provides `bool`)
-- mixing declarations and code (not only at start of block)
+- mixing code and declarations (not only at start of block)
 - variable-length arrays (length determined at runtime)
 - [flexible array members][fam] (member array without a dimension)
 - variadic macros, the [offsetof][offsetof] macro (from stddef.h)
@@ -64,7 +64,7 @@ All others bind left-to-right; for example, 4-2+1 is 3 (not 1).
 The standard library is an integral part of the C standard.
 It provides some 200 functions for I/O, dynamic memory,
 mathematics, assertions, formatting, etc.
-It is somewhat inconsistent, but useful always available.
+It is somewhat inconsistent, but useful and always available.
 See [CLib.md](./CLib.md)
 
 ## Undefined Behavior
@@ -99,18 +99,50 @@ but here a pointer to the zero address, the typical
 implementation of the NULL pointer, is dereferenced,
 so this implementation is most likely invalid.
 
-## References
+- signed integer overflow
+
+For example, `INT_MAX+1` is not guaranteed to be `INT_MIN`.
+However, unsigned integer overflow is guaranteed to wrap around.
+
+- array index out of bounds
+- uninitialized variables
+
+Other do bounds-checking and initialize all local variables to zero.
+C does not for performance reasons, at the price of undefined behaviour.
+
+- modifying string literals
+
+They may be stored in read-only memory. Therefore,
+the 2nd statement in `char *s = "hi"; s[0] = 'H';`
+may cause an error.
+
+- pointer comparison
+
+Pointer comparison is only defined for pointers pointing
+into the same object (array or struct). In practice, however,
+any two pointers can be compared almost always (but remember
+the segmented memory of DOS).
+
+There is more undefined behaviour; see, e.g.,
+[Wikipedia](https://en.wikipedia.org/wiki/Undefined_behavior).
+
+## Bibliography
 
 Kernighan and Ritchie:
 *The C Programming Language*, 2nd edition,
 Prentice Hall 1988.
-[Amazon](https://www.amazon.com/dp/0131103628).
+[Amazon](https://www.amazon.com/dp/0131103628)
 
-P.J. Plauger: *The Standard C Library*.
-Prentice Hall, 1992.
+P.J. Plauger: *The Standard C Library*,
+Prentice Hall 1992.
 [Amazon](https://www.amazon.com/dp/0131315099)
 
 Rob Pike:
 *Notes on Programming in C*, 1989,
 [archived at Lysator](https://www.lysator.liu.se/c/pikestyle.html),
 and [local copy](PikeStyle.md)
+
+Steve Summit:
+*C Programming FAQs*, Addison-Wesley 1995.
+[Amazon](https://www.amazon.com/dp/0201845199)
+and online at [c-faq.com](http://c-faq.com/)

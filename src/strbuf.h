@@ -1,5 +1,5 @@
-#ifndef _STRBUF_H_
-#define _STRBUF_H_
+#ifndef STRBUF_H
+#define STRBUF_H
 
 /* Growable char buffer, always \0-terminated */
 
@@ -29,16 +29,16 @@ typedef struct strbuf {
 #define strbuf_size(sp)    ((sp)->buf ? ((sp)->size & ~1) : 0)
 #define strbuf_failed(sp)  ((sp)->size & 1)
 
-extern int strbuf_add(strbuf *sp, strbuf *sq);
-extern int strbuf_addc(strbuf *sp, int c);
-extern int strbuf_addz(strbuf *sp, const char *z);
-extern int strbuf_addb(strbuf *sp, const char *buf, size_t len);
-extern int strbuf_addf(strbuf *sp, const char *fmt, ...);
-extern int strbuf_addfv(strbuf *sp, const char *fmt, va_list ap);
+int strbuf_add(strbuf *sp, strbuf *sq);
+int strbuf_addc(strbuf *sp, int c);
+int strbuf_addz(strbuf *sp, const char *z);
+int strbuf_addb(strbuf *sp, const char *buf, size_t len);
+int strbuf_addf(strbuf *sp, const char *fmt, ...);
+int strbuf_addfv(strbuf *sp, const char *fmt, va_list ap);
 
-extern int strbuf_ready(strbuf *sp, size_t dlen);
-extern void strbuf_trunc(strbuf *sp, size_t len);
-extern void strbuf_free(strbuf *sp);
+int strbuf_ready(strbuf *sp, size_t dlen);
+void strbuf_trunc(strbuf *sp, size_t len);
+void strbuf_free(strbuf *sp);
 
 /* Define short names */
 

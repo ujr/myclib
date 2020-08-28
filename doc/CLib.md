@@ -147,7 +147,7 @@ it is non-zero if the condition is satisified, and zero
 if not.
 
 In the ASCII character set, the printing characters are
-0x20 (space) through 0x7E (`~`); the control characters
+0x20 (space) through 0x7E (tilde); the control characters
 are 0 to 0x1F, and 0x7F (DEL).
 
 The function `tolower(c)` returns the corresponding
@@ -359,7 +359,7 @@ Avoid using signals: doing so improves portability.
 Signal handlers can be grouped as
 
 1. those that must not return and simply report an arithmetic
-   exception (`SIGFPE<`) or a fatal error (`SIGABRT`), and
+   exception (`SIGFPE`) or a fatal error (`SIGABRT`), and
 
 2. those that must return, such as in response to a `SIGINT`
    asking for interactive attention; these signals usually

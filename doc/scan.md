@@ -85,7 +85,7 @@ while ('0' <= *p && *p <= '9') {
 }
 ```
 
-Using `isdigit(*p)` from `ctype.h` in the loop test
+Using `isdigit(*p)` from `<ctype.h>` in the loop test
 would make it independent of encoding, but the loop
 body would still depend on the above assumption.
 To be independent of the character encoding, we

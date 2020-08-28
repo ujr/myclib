@@ -1,4 +1,4 @@
-# My C Library
+# My C Utils
 
 This is my collection of C utility functions,
 some of my own design and writing, some from
@@ -79,7 +79,7 @@ Short variable names:
 
 ## Literature
 
-Classics on C programming and Unix programming are:
+Classics on C and Unix programming include:
 
 B.W. Kernighan, D.M. Ritchie: *The C Programming Language*.
 Second edition, Prentice Hall, 1988.
@@ -91,3 +91,8 @@ P.J. Plauger: *The Standard C Library*. Prentice Hall, 1992.
 W. Richard Stevens: *Advanced Programming in the Unix
 Environment*. Addison-Wesley, 1992.
 [Amazon](https://www.amazon.com/dp/0201563177)
+
+Steve Summit:
+*C Programming FAQs*. Addison-Wesley, 1995.
+[Amazon](https://www.amazon.com/dp/0201845199)
+and online at [c-faq.com](http://c-faq.com/)
