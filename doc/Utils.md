@@ -21,6 +21,8 @@ int getendian(void);
 size_t utcscan(const char *s, struct tm *tp);
 size_t utcstamp(char buf[], char sep);
 #define UTCSTAMPLEN 20
+
+int signum(number); /* the sign function */
 ```
 
 **argsplit** splits the string *s* into individual arguments
@@ -143,3 +145,12 @@ The buffer must be at least `UTCSTAMPLEN` chars long.
 If the current year is less than 1000 or greater than
 9999, it will be written as the string `xxxx`.
 Return the number of characters written.
+
+---
+
+**signum:** returns 1 if its argument is positive,
+0 if it is zero, or -1 if it is negative. Works with
+integers and floating-point numbers. However, NaN
+(not-a-number) returns 0, not NaN (because we always
+return an integer). The function is not called `sign`
+so that this useful name remains available.

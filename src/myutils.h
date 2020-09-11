@@ -28,4 +28,6 @@ size_t utcscan(const char *s, struct tm *tp);
 size_t utcstamp(char buf[], char sep);
 int utcinit(void);
 
+#define signum(x) (((x) > 0) - ((x) < 0))
+
 #endif

@@ -135,6 +135,14 @@ myutils_test(int *pnumpass, int *pnumfail)
   buf[n] = 0;
   INFO("UTCSTAMP: %s", buf);
 
+  HEADING("Testing signum()");
+  TEST("signum 42", signum(42) == 1);
+  TEST("signum -5", signum(-5) == -1);
+  TEST("signum 0", signum(0) == 0);
+  TEST("signum 1.2", signum(1.2) == 1);
+  TEST("signum -0.5", signum(-.5) == -1);
+  TEST("signum 0.0", signum(0.0) == 0);
+
   *pnumpass += numpass;
   *pnumfail += numfail;
 }
