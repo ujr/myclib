@@ -40,7 +40,8 @@ Tools
 
 - Make, [Makefiles](doc/Makefiles.md) in general,
   and our [Makefile](./Makefile) as an example
-- GCC and GDB are the GNU Compiler Collection and the GNU Debugger;
+- GCC and [GDB](doc/GDB.md) are the GNU Compiler Collection
+  and the GNU Debugger;
   together with GNU Make they form the “GNU Toolchain”, to which you
   may add Binutils (as, ld, nm, strip, etc.), Autotools, and Bison.
 - [Valgrind](https://www.valgrind.org) is a free memory debugging tool:
