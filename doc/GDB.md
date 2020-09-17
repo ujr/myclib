@@ -28,9 +28,10 @@ repeates the last command. Help on commands is available
 from within GDB through the `help` command.
 
 - **help** \[*cmd*] / get help (for command *cmd*)
+- **file prog** / load *prog* for debugging
 - **quit** / quit GDB
 
-Commands related to breakpoints:
+Setting breakpoints:
 
 - **b main** / set breakpoint at start of `main` method
 - **b fun** / set breakpoint at start of function *fun*
@@ -39,27 +40,26 @@ Commands related to breakpoints:
 - **info break** / list all breakpoints (note they are numbered)
 - **d N** / delete breakpoint number *N*
 
-Commands related to running a program:
+Running (starting) a program:
 
-- **file prog** / load *prog*
 - **run** / run loaded program (with no arguments)
 - **run args** / run loaded program with given arguments
 - **run < file** / run loaded program (redirect stdin to *file*)
+- **cont** / continue running after a breakpoint
 
-Commands related to stepping:
+Stepping through a program:
 
 - **step** / run the next line (stepping into functions)
 - **step N** / run the next *N* lines
 - **next** / run the next line (do not step into functions)
 - **u N** / run until again *N* lines above current
-- **cont** / continue running after a breakpoint
 - **fini** / finish running current function
 - **return** / return early from current function
 - **list** / type source code around where you are
 - **l N** / type source code around line *N*
 - **l fun** / type source code for function *fun*
 
-Commands related to values:
+Showing and modifying values:
 
 - **p expr** / print value of variable or expression *expr*
 - **set var=expr** / set (overwrite) a variable

@@ -135,6 +135,6 @@ strbuf_test(int *pnumpass, int *pnumfail)
   strbuf_free(sp);
 #endif
 
-  *pnumpass += numpass;
-  *pnumfail += numfail;
+  if (pnumpass) *pnumpass += numpass;
+  if (pnumfail) *pnumfail += numfail;
 }

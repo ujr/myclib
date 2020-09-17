@@ -1,8 +1,8 @@
 .POSIX:
 
 CC = gcc -std=c99
-CFLAGS = -Wall -Wextra -pedantic -Os -g3 -Isrc
-LDFLAGS = -s
+CFLAGS = -Wall -Wextra -pedantic -Og -g -Isrc
+LDFLAGS = # -s
 LDLIBS = # -lm
 PREFIX = /usr/local
 
@@ -35,8 +35,7 @@ LIBOBJS = src/argsplit.o src/basename.o src/streq.o src/strbuf.o \
 liba: bin/myclib.a
 bin/myclib.a: $(LIBOBJS)
 	rm -f $@
-	ar cr $@ $(LIBOBJS)
-	-ranlib $@
+	ar rcs $@ $(LIBOBJS)
 
 testsuite: bin/runtests
 bin/runtests: src/runtests.c bin/myclib.a $(TESTS) $(LIBINCS)

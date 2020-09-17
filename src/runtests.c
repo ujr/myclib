@@ -1,4 +1,4 @@
-/* Test Suite */
+/* Test Runner */
 
 #include <stdio.h>
 
