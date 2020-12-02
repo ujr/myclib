@@ -67,6 +67,36 @@ mathematics, assertions, formatting, etc.
 It is somewhat inconsistent, but useful and always available.
 See [CLib.md](./CLib.md)
 
+## Idioms
+
+C has idioms a few idioms that might not be immediately obvious,
+but useful if you know them.
+
+- `!!x` converts the integer `x` to a Boolean value: the
+  first negation turns zero into 1 and non-zero into 0,
+  the second negation inverts 0 and 1.
+
+- `do { ... } while (0)` executes `...` exactly once, so
+  it is redundant, but useful in macro definitions because
+  it turns potentially many statements `...` into one
+  compound statement.
+
+- `while (n--) *p++ = *s++;` or in a more extreme variation
+  `while (*t++ = *s++);` is probably the most classic idiom:
+  *s* and *t* are typically character pointers; the idiom then
+  copies characters up to and including the zero terminator;
+  of course, *t* must point to large enough a buffer.
+
+- `if ((a = b))...` assigns the value of *b* to *a*, then
+  tests against `0` to decide how to branch; the additional
+  parentheses are an optional indication that this is not just
+  a mistyped `if (a == b)...` and may silence a compiler warning.
+
+- `for (p = &a[0]; p < &a[N]; p++) *p = 0;` may be faster than
+  the equivalent `for (i = 0; i < N; i++) a[i] = 0;` on old
+  compilers. Note that `a[N]` is one beyond the array, which
+  is ok for taking the address (but no further beyond).
+
 ## Undefined Behavior
 
 The C specification leaves some behavior unspecified.
@@ -146,3 +176,11 @@ Steve Summit:
 *C Programming FAQs*, Addison-Wesley 1995.
 [Amazon](https://www.amazon.com/dp/0201845199)
 and online at [c-faq.com](http://c-faq.com/)
+
+Eric Laroche:
+*C Programming Language Overview*, 2004,
+<http://www.lrdev.com/lr/c/c-programming-language-overview.html>
+
+Jim Larson:
+*Standards and Style for Coding in ANSI C*, 1996,
+once at <http://www.jetcafe.org/jim/c-style.html>

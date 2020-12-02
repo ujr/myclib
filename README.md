@@ -3,7 +3,7 @@
 This is my collection of C utility functions,
 some of my own design and writing, some from
 public domain code I found useful.
-I also collect here some notes on C and related topics.
+I also collect here notes on C and related topics.
 
 The stuff here may be used as a static library,
 as a “copy-paste” source, or simply as a memory aid.
