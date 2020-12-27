@@ -7,31 +7,35 @@
  *   buf_capacity(v)  return capacity of buffer (size_t)
  *   buf_push(v, e)   append element e at end of buffer v
  *   buf_pop(v)       remove and return last element from v
+ *   buf_top(v)       pointer to last element of v, undefined if v is empty
  *   buf_peek(v)      return (but don't remove) the last element
- *   buf_clear(v)     clear buffer v (set its size to 0)
+ *   buf_trunc(v, n)  truncate to size n elements; leave capacity unchanged
+ *   buf_clear(v)     equivalent to buf_trunc(v, 0)
  *   buf_grow(v, n)   change buffer capacity by (ptrdiff_t) n elements
- *   buf_trunc(v, n)  set buffer capacity to (ptrdiff_t) n elements
+ *   buf_trim(v, n)   set buffer capacity to (ptrdiff_t) n elements
  *   buf_free(v)      destroy and free the buffer
  *
- * Note: buf_{push,grow,trunc,free}() may change the buffer pointer;
+ * Note: buf_{push,grow,trim,free}() may change the buffer pointer;
  * copies of this pointer variable are thus invalidated!
  *
  * Usage:
- *   float *values = 0;       // zero-initialization is required!
- *   buf_push(values, 1.23);  // append (values may be realloc'ed)
- *   float f = values[0];     // access by ordinary indexing
- *   buf_free(values);        // release memory (changes values to 0)
+ *   float *mybuf = 0;       // zero-initialization is required!
+ *   buf_push(mybuf, 1.23);  // append (values may be realloc'ed)
+ *   float f = mybuf[0];     // access by ordinary indexing
+ *   buf_free(mybuf);        // release memory (changes values to 0)
  */
+
+#pragma once
 
 #include <stddef.h>
 #include <stdlib.h>
 
 #ifndef BUF_INIT_CAPACITY
-# define BUF_INIT_CAPACITY 8
+#  define BUF_INIT_CAPACITY 8
 #endif
 
 #ifndef BUF_ABORT
-# define BUF_ABORT abort()
+#  define BUF_ABORT abort()
 #endif
 
 struct buf {
@@ -40,7 +44,7 @@ struct buf {
   char buffer[]; /* C99: flexible array member */
 };
 
-#define buf_ptr(v) /* C99: offsetof macro in stddef */ \
+#define buf_ptr(v) /* C99: offsetof macro in stddef.h */ \
   ((struct buf *)((char *)(v) - offsetof(struct buf, buffer)))
 
 #define buf_size(v) \
@@ -53,7 +57,7 @@ struct buf {
   do { \
     if (buf_capacity(v) == buf_size(v)) { \
       size_t n = buf_capacity(v) ? buf_capacity(v) : BUF_INIT_CAPACITY; \
-      (v) = buf_alloc(v, sizeof(*(v)), n); \
+      (v) = buf_grow1(v, sizeof(*(v)), n); \
     } \
     (v)[buf_ptr((v))->size++] = (e); \
   } while (0)
@@ -61,28 +65,37 @@ struct buf {
 #define buf_pop(v) \
   ((v)[--buf_ptr(v)->size])
 
+#define buf_top(v) \
+  (&(v)[buf_ptr(v)->size-1])
+
 #define buf_peek(v) \
   ((v)[buf_ptr(v)->size-1])
+
+#define buf_trunc(v, n) \
+  do { size_t m = (n); \
+    if (m < buf_size(v)) buf_ptr(v)->size = m; \
+    /* do nothing if n > size */ \
+  } while (0)
 
 #define buf_clear(v) \
   ((v) ? (buf_ptr(v)->size = 0) : 0)
 
 #define buf_grow(v, n) \
-  ((v) = buf_alloc(v, sizeof(*(v)), n))
+  ((v) = buf_grow1(v, sizeof(*(v)), n))
 
-#define buf_trunc(v, n) \
-  ((v) = buf_alloc(v, sizeof(*(v)), n - buf_capacity(v)))
+#define buf_trim(v, n) \
+  ((v) = buf_grow1(v, sizeof(*(v)), n - buf_capacity(v)))
 
 #define buf_free(v) \
   do { \
     if (v) { \
       free(buf_ptr(v)); \
-      (v) = 0; /* mark as unalloc'ed */ \
+      (v) = 0; /* mark as unallocated */ \
     } \
   } while (0)
 
 static void *
-buf_alloc(void *v, size_t esize, ptrdiff_t n)
+buf_grow1(void *v, size_t esize, ptrdiff_t n)
 {
   struct buf *bp;
   size_t max = ((size_t) -1) - sizeof(struct buf);
