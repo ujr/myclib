@@ -1,3 +1,4 @@
+#pragma once
 #ifndef STRBUF_H
 #define STRBUF_H
 
@@ -17,11 +18,21 @@ typedef struct strbuf {
    allocation failed).
 
    A strbuf MUST be initialized as in `strbuf sb = {0};`
-   to start in the unallocated state!
+   to start in the unallocated state! Alternatively, say
+   `strbuf_init(&sb);` (but doing so on an allocated strbuf
+   results in a memory leak).
+
+   By default, the program will be aborted when a memory
+   allocation fails; this is to simplify error handling.
+   By registering an error handler, this handler will be
+   called instead of aborting the program.
 
    The buffer size is always even, its least significant bit
-   thus always zero and terefore redundant; we use it as the
-   failed flag (0=normal, 1=failed). */
+   thus always zero and therefore redundant; we use it as the
+   failed flag (0=normal, 1=failed).
+
+   The functions with return type int return true if sucessful
+   and 0 on error. */
 
 #define strbuf_ptr(sp)     ((sp)->buf ? (sp)->buf : "")
 #define strbuf_char(sp, i) ((sp)->buf[i])
@@ -36,13 +47,17 @@ int strbuf_addb(strbuf *sp, const char *buf, size_t len);
 int strbuf_addf(strbuf *sp, const char *fmt, ...);
 int strbuf_addfv(strbuf *sp, const char *fmt, va_list ap);
 
+void strbuf_init(strbuf *sp);
 int strbuf_ready(strbuf *sp, size_t dlen);
 void strbuf_trunc(strbuf *sp, size_t len);
 void strbuf_free(strbuf *sp);
 
+void strbuf_nomem(void (*handler)(void));
+
 /* Define short names */
 
 #ifndef STRBUF_NO_SHORT_NAMES
+#define sbinit   strbuf_init
 #define sbptr    strbuf_ptr
 #define sbchar   strbuf_char
 #define sblen    strbuf_len

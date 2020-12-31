@@ -57,7 +57,15 @@ or writing; strbuf must be allocated and *n* in range,
 which is not checked!
 
 **sbfailed** returns true after a memory allocation
-has failed.
+has failed. By default, the program is aborted if a
+memory allocation fails and the string buffer thus
+never enters into failed state. This can be changed
+by registering an error handler with **strbuf_nomem**.
+The handler can be as simple as a no-op function, in
+which case you have to test with **sbfailed** or looking
+for return values. Alternatively, the error handler may
+print a custom error message before aborting, or do a
+long jump out to the main loop, or similar.
 
 The **sbadd** functions append to the end of the string:
 **add** the contents of another strbuf,
