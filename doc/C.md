@@ -101,6 +101,16 @@ but useful if you know them.
   compilers. Note that `a[N]` is one beyond the array, which
   is ok for taking the address (but no further beyond).
 
+- The **opaque pointer** is a C idiom that provides information
+  hiding. Example: assume `struct foo {...};` in *foo.c* and
+  `struct foo *pFoo;` in *foo.h*; here `pFoo` is an opaque pointer
+  to the incomplete type `struct foo`. The pointer can be copied
+  around but cannot be dereferenced. The members of the struct
+  are available in *foo.c* but not in *foo.h* and thus hidden.
+  (By the way: `typedef struct foo *Foo; Foo myfoo;` is frowned
+  upon because hiding the pointer hides important information
+  and is error prone; nevertheless, it is an often seen idiom.)
+
 ## Undefined Behavior
 
 The C specification leaves some behavior unspecified.
