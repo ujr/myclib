@@ -81,6 +81,10 @@ but useful if you know them.
   it turns potentially many statements `...` into one
   compound statement.
 
+- The macro `#define UNUSED(x) ((void) (x))` can be used
+  to silence compiler warnings about unused arguments,
+  as in `int foo(int bar) { UNUSED(bar); return 42; }`.
+
 - `while (n--) *p++ = *s++;` or in a more extreme variation
   `while (*t++ = *s++);` is probably the most classic idiom:
   *s* and *t* are typically character pointers; the idiom then
