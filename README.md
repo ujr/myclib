@@ -29,6 +29,7 @@ Stuff in the library:
 - Config (INI) file parsing: [iniconf.md](doc/iniconf.md), [iniconf.h](src/iniconf.h)
 - Endian: [Endian.md](doc/Endian.md), [endian.c](src/endian.c)
 - Formatting: [print.md](doc/print.md), [print.h](src/print.h)
+- Getopt: [getopt.h](src/getopt.h) (header only) (cf scf.c/h)
 - Scanning: [scan.md](doc/scan.md), [scan.h](src/scan.h)
 - Growable string: [strbuf.md](doc/strbuf.md), [strbuf.h](src/strbuf.h)
 - Simple I/O: [simpleio.md](doc/simpleio.md), [simpleio.h](src/simpleio.h)
@@ -91,7 +92,8 @@ P.J. Plauger: *The Standard C Library*. Prentice Hall, 1992.
 
 W. Richard Stevens: *Advanced Programming in the Unix
 Environment*. Addison-Wesley, 1992.
-[Amazon](https://www.amazon.com/dp/0201563177)
+[Amazon](https://www.amazon.com/dp/0201563177) and
+<http://www.kohala.com/start/>
 
 Steve Summit:
 *C Programming FAQs*. Addison-Wesley, 1995.

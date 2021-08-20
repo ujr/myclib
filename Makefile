@@ -15,7 +15,8 @@ clean:
 	rm -f bin/* src/*.o
 
 TESTS = src/buf_test.o src/myutils_test.o src/print_test.o src/scan_test.o \
-  src/strbuf_test.o src/simpleio_test.o src/scf_test.o src/iniconf_test.o
+  src/strbuf_test.o src/simpleio_test.o src/scf_test.o src/iniconf_test.o \
+  src/getopt_test.o
 LIBINCS = src/myutils.h src/myunix.h src/print.h src/scan.h \
   src/strbuf.h src/simpleio.h src/scf.h src/test.h src/iniconf.h
 LIBOBJS = src/argsplit.o src/basename.o src/streq.o src/strbuf.o \
