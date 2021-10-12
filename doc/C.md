@@ -41,11 +41,11 @@ defines evaluation order amongst operators of the same precedence.
 |  7 | `==   !=`   | equality       | left |
 |  8 | `&`         | bitwise and    | left |
 |  9 | `^`         | bitwise xor    | left |
-| 10 | `|`         | bitwise or     | left |
+| 10 | <code>&vert;</code> | bitwise or     | left |
 | 11 | `&&`        | logical and    | left |
-| 12 | `||`        | logical or     | left |
+| 12 | <code>&vert;&vert;</code> | logical or     | left |
 | 13 | `?:`        | conditional    | right |
-| 14 | `= += -= *= /= %= &= ^= |= <<= >>=` | assignment | right |
+| 14 | <code>= += -= *= /= %= &= ^= &vert;= <<= >>=</code> | assignment | right |
 | 15 | `,`         | comma          | left |
 
 Operators are listed in order from highest precedence (tightest
