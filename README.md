@@ -35,6 +35,7 @@ Stuff in the library:
 - Simple I/O: [simpleio.md](doc/simpleio.md), [simpleio.h](src/simpleio.h)
 - Testing: [test.h](src/test.h), [runtests.c](src/runtests.c)
 - Unix: [Unix.md](doc/Unix.md), [myunix.h](src/myunix.h)
+- UTF-8: [utf8.md](doc/utf8.md), [utf8.h](src/utf8.h)
 - Utils: [Utils.md](doc/Utils.md), [myutils.h](src/myutils.h)
 
 Tools

@@ -15,6 +15,7 @@ extern void simpleio_test(int *pnumpass, int *pnumfail);
 extern void scf_test(int *pnumpass, int *pnumfail);
 extern void iniconf_test(int *pnumpass, int *pnumfail);
 extern void getopt_test(int *pnumpass, int *pnumfail);
+extern void utf8_test(int *pnumpass, int *pnumfail);
 
 int
 main(int argc, char **argv)
@@ -34,6 +35,7 @@ main(int argc, char **argv)
   scf_test(&numpass, &numfail);
   iniconf_test(&numpass, &numfail);
   getopt_test(&numpass, &numfail);
+  utf8_test(&numpass, &numfail);
 
   SUMMARY(numpass, numfail);
   return numfail > 0 ? 1 : 0;
