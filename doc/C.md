@@ -111,6 +111,17 @@ but useful if you know them.
   upon because hiding the pointer hides important information
   and is error prone; nevertheless, it is an often seen idiom.)
 
+## Generic Pointers
+
+Note that `void*` is a generic *object* pointer. Any object
+pointer can be cast to `void*` and back and still point to
+the same object. Also note that `void*` is *not* a function
+pointer and that there is no “`void*`” for function pointers.
+GCC's `-pedantic` option warns when it sees a cast from a
+function pointer to `void*` or vice versa. However, on many
+systems, a function pointer *can* be cast to `void*` and back
+and still point to the same function. POSIX even requires this.
+
 ## Undefined Behavior
 
 The C specification leaves some behavior unspecified.
@@ -191,10 +202,16 @@ Steve Summit:
 [Amazon](https://www.amazon.com/dp/0201845199)
 and online at [c-faq.com](http://c-faq.com/)
 
+Jim Larson:
+*Standards and Style for Coding in ANSI C*, 1996,
+once at <http://www.jetcafe.org/jim/c-style.html>
+
 Eric Laroche:
 *C Programming Language Overview*, 2004,
 <http://www.lrdev.com/lr/c/c-programming-language-overview.html>
 
-Jim Larson:
-*Standards and Style for Coding in ANSI C*, 1996,
-once at <http://www.jetcafe.org/jim/c-style.html>
+Jens Gustedt:
+*Modern C*, 2019,
+[Manning](https://www.manning.com/books/modern-c) and
+[online](https://gustedt.gitlabpages.inria.fr/modern-c/)
+CC BY-NC-ND
