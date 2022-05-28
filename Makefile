@@ -6,7 +6,7 @@ LDFLAGS = # -s
 LDLIBS = # -lm
 PREFIX = /usr/local
 
-all: liba testsuite argparse duff endian limits match random
+all: liba testsuite argparse duff endian limits match random trycurs
 
 check: testsuite liba
 	bin/runtests
@@ -65,6 +65,10 @@ bin/match: src/scanpat.c
 random: bin/random
 bin/random: src/random.c
 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $< $(LDLIBS)
+
+trycurs: bin/trycurs
+bin/trycurs: src/trycurs.c
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $< $(LDLIBS) -lcurses
 
 .c.o:
 	$(CC) $(CFLAGS) -c -o $@ $<

@@ -21,6 +21,7 @@ Notes on C and related tools:
 - Style: [Notes on Programming in C](doc/PikeStyle.md) by Rob Pike
 - Duff's Device: [Duff.md](doc/Duff.md), [duff.c](src/duff.c)
 - The syslog facility: [syslog.md](doc/syslog.md)
+- The curses screen handling library: [curses.md](doc/curses.md)
 
 Stuff in the library:
 
